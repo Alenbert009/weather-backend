@@ -9,6 +9,11 @@ from collections import deque
 import sys
 import tensorflow as tf
 from tensorflow.keras.models import load_model
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+print("BASE_DIR =", BASE_DIR)
 print("=" * 50)
 print("PYTHON:", sys.executable)
 print("TF VERSION:", tf.__version__)
@@ -34,21 +39,38 @@ API_KEY = "9e37120cfdb54781b8371238261404"
 # LOAD MODELS
 # =========================
 # Updated to v4
-rain_model = joblib.load("training/rain_modelv4.pkl")
-storm_model = joblib.load("training/thunderstorm_xgb_model.pkl")
-heat_model = joblib.load("training/heat_model.pkl")
-pollution_model = joblib.load("training/pollution_model.pkl")
-aqi_model = joblib.load("training/aqi_model.pkl")
+rain_model = joblib.load(
+    BASE_DIR / "training" / "rain_modelv4.pkl"
+)
+
+storm_model = joblib.load(
+    BASE_DIR / "training" / "thunderstorm_xgb_model.pkl"
+)
+
+heat_model = joblib.load(
+    BASE_DIR / "training" / "heat_model.pkl"
+)
+
+pollution_model = joblib.load(
+    BASE_DIR / "training" / "pollution_model.pkl"
+)
+
+aqi_model = joblib.load(
+    BASE_DIR / "training" / "aqi_model.pkl"
+)
+
 lstm_model = load_model(
-    "training/weather_lstm_model.h5",
+    BASE_DIR / "training" / "weather_lstm_model.h5",
     compile=False,
     safe_mode=False
 )
+
 lstm_scaler = joblib.load(
-    "training/lstm_scaler.pkl"
+    BASE_DIR / "training" / "lstm_scaler.pkl"
 )
+
 lstm_config = joblib.load(
-    "training/lstm_config.pkl"
+    BASE_DIR / "training" / "lstm_config.pkl"
 )
 
 rain_threshold = 0.65
